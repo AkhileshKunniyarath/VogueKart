@@ -12,6 +12,7 @@ const style = (width, height) =>
       alignItems: 'center',
       justifyContent: 'space-between',
       marginBottom: 20,
+      padding:10,
     },
     headText: { 
         fontFamily: 'Lato-Bold', 

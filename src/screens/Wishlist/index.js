@@ -4,9 +4,11 @@ import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import {useDimensionContext} from '../../context';
 import {useNavigation} from '@react-navigation/native';
 import CommonHeaderLeft from '../../components/CommonHeaderLeft';
+import { useSelector } from 'react-redux';
 
 const Wishlist = () => {
   const navigation = useNavigation();
+  const {cartCount} = useSelector(state => state);
 
   useEffect(() => {
     navigation.setOptions({
@@ -14,7 +16,7 @@ const Wishlist = () => {
         return (
           <TouchableOpacity>
             <View style={responsiveStyle.cartCount}>
-              <Text style={responsiveStyle.count}>2</Text>
+              <Text style={responsiveStyle.count}>{cartCount}</Text>
             </View>
             <Image
               source={require('../../assets/images/wishlist-cart.png')}

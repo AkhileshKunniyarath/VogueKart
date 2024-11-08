@@ -77,12 +77,12 @@ const LoginPhone = () => {
             <Image source={require('../../assets/images/logo.jpg')} 
             style= {responsiveStyle.logo} 
             />
-            <Text style={responsiveStyle.loginText}>Login With Phone</Text>
+            <Text style={responsiveStyle.loginText}>Login With phone</Text>
 
             {error !== null ? <Text style= {responsiveStyle.errorText}>{error}</Text> : null}
             <CustomTextInput 
             handleText={text=> setPhone(text)} 
-            placeholder="Phone Number" 
+            placeholder="phone Number" 
             type="phone"
             />
 
@@ -97,7 +97,7 @@ const LoginPhone = () => {
             <CustomButton 
             type="primary"
             handleButtonPress={showOtp ? handleVerifyOtp : handleButtonPress} 
-            buttonText={showOtp ? 'Verify OTP' : 'Sign In with Phone'} />
+            buttonText={showOtp ? 'Verify OTP' : 'Sign In with phone'} />
 
             <Text onPress={handleGoToLogIn} style={responsiveStyle.getStarted}>Go To Login</Text>
             

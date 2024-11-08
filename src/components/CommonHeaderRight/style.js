@@ -13,9 +13,9 @@ const style = (width, height) =>
     },
     cartCount: {
         position:'absolute',
-        right: 5,
-        top:-5,
-        backgroundColor:colors.green,
+        right: 4,
+        top: -8,
+        backgroundColor:colors.tranRed,
         justifyContent:'center',
         alignItems:'center',
         borderRadius:50,
@@ -25,10 +25,15 @@ const style = (width, height) =>
         zIndex:9,
       },
       count: {
-        color:colors.white,
-        fontFamily:'Lato-Bold',
-        fontSize:14,
+        color:colors.red,
+        fontFamily:'Lato-Black',
+        fontSize:15,
         textAlign:'center'
+      },
+      flexStyle : {
+        flexDirection:'row',
+        justifyContent:'space-around',
+        alignItems:'center',
       },
   });
 

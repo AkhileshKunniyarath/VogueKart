@@ -3,7 +3,8 @@ import style from './style';
 import {useDimensionContext} from '../../../../context';
 import colors from '../../../../components/common/colors';
 
-const OrderTotal = () => {
+const OrderTotal = props => {
+  const {total, charges} = props;
   const dimensions = useDimensionContext();
   const responsiveStyle = style(
     dimensions.windowWidth,
@@ -29,7 +30,7 @@ const OrderTotal = () => {
               color: colors.black,
               lineHeight: 30,
             }}>
-            ₹ 2879.00
+            ₹ {parseFloat(total).toFixed(2)}
           </Text>
           <Text
             style={{
@@ -56,7 +57,7 @@ const OrderTotal = () => {
               color: colors.black,
               lineHeight: 30,
             }}>
-            ₹ 50.00
+            ₹ {parseFloat(charges).toFixed(2)}
           </Text>
         </View>
       </View>
@@ -66,14 +67,8 @@ const OrderTotal = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-        <Text
-          style={responsiveStyle.total}>
-          Order Details
-        </Text>
-        <Text
-          style={responsiveStyle.total}>
-          ₹ 2929.00
-        </Text>
+        <Text style={responsiveStyle.total}>Order Details</Text>
+        <Text style={responsiveStyle.total}>₹{parseFloat(total + charges).toFixed(2)}</Text>
       </View>
     </View>
   );

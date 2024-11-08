@@ -9,6 +9,7 @@ import { validateEmail, validatePhoneNumber } from "../../components/common/vali
 import Snackbar from "react-native-snackbar";
 import colors from "../../components/common/colors";
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import Home from "../Home";
 
 
 

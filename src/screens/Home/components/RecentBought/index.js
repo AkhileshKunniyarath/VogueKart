@@ -1,39 +1,48 @@
-import {FlatList, Image, Text, View} from 'react-native';
+import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import {useDimensionContext} from '../../../../context';
 import style from './style';
+import {useEffect, useState} from 'react';
+import firestore from '@react-native-firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 const RecentBought = () => {
   const dimensions = useDimensionContext();
   const responsiveStyle = style(
     dimensions.windowWidth,
     dimensions.windowHeight,
+    dimensions.isPortrait,
   );
-  const recentItems = [
-    {
-      id: 0,
-      image: require('../../../../assets/images/iphone13.png'),
-    },
-    {
-      id: 1,
-      image: require('../../../../assets/images/tshirt.png'),
-    },
-    {
-      id: 2,
-      image: require('../../../../assets/images/headphone.png'),
-    },
-    {
-      id: 3,
-      image: require('../../../../assets/images/jacket.png'),
-    },
-    {
-      id: 4,
-      image: require('../../../../assets/images/cosmetics.png'),
-    },
-    {
-      id: 5,
-      image: require('../../../../assets/images/titan_watch.png'),
-    },
-  ];
+  const navigation = useNavigation();
+  const [recentItems, setRecentItems] = useState([]);
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  const getProducts = async () => {
+    await firestore()
+      .collection('Products')
+      .get()
+      .then(snapshot => {
+        if (!snapshot.empty) {
+          const result = [];
+          snapshot.docs.forEach(doc => {
+            if (doc.exists) {
+              result.push(doc.data());
+            }
+          });
+          setRecentItems(result);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const handleProduct = item => {
+    navigation.navigate('ProductDetails',{product: item,});
+    };
+
   return (
     <View style={responsiveStyle.Container}>
       <Text style={responsiveStyle.headText}>View your recently bought</Text>
@@ -44,9 +53,14 @@ const RecentBought = () => {
         data={recentItems}
         renderItem={({item, index}) => {
           return (
-            <View style={responsiveStyle.contentView}>
-              <Image source={item.image} style={responsiveStyle.image} />
-            </View>
+            <TouchableOpacity onPress={() => handleProduct(item)}>
+              <View style={responsiveStyle.contentView}>
+                <Image
+                  source={{uri: item.image}}
+                  style={responsiveStyle.image}
+                />
+              </View>
+            </TouchableOpacity>
           );
         }}
       />

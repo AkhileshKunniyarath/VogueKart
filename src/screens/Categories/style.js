@@ -50,7 +50,7 @@ const style = (width, height) =>
       padding: 2,
       color:colors.black,
     },
-    proContaioner: {
+    proContainer: {
       width:width*0.33,
       padding: 5,
       justifyContent: 'space-between',

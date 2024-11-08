@@ -4,7 +4,7 @@ import colors from '../../../../components/common/colors';
 const style = (width, height) =>
   StyleSheet.create({
     container: {
-      marginVertical: 10,
+      marginVertical: 2,
       backgroundColor: colors.Electric_Purple,
     },
     head: {

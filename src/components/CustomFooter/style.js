@@ -35,22 +35,23 @@ const style = (width,height, isPortrait) =>
     },
     cartCount: {
         position:'absolute',
-        right:-13,
+        right:-10,
         top:-10,
-        backgroundColor:colors.green,
+        backgroundColor:colors.black_lvl_3,
         justifyContent:'center',
         alignItems:'center',
         borderRadius:50,
         overflow:'hidden',
-        paddingHorizontal:8,
-        paddingVertical:1,
+        paddingHorizontal:6.5,
+        paddingVertical:2,
+        // alignSelf:'center',
         zIndex:9,
       },
       count: {
         color:colors.white,
-        fontFamily:'Lato-Bold',
-        fontSize:14,
-        textAlign:'center'
+        fontFamily:'Lato-Black',
+        fontSize:16,
+        textAlign:'center',
       },
 });
 

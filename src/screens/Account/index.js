@@ -1,6 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import style from './style';
-import {Image, Modal, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  Modal,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import CommonHeaderLeft from '../../components/CommonHeaderLeft';
 import {useNavigation} from '@react-navigation/native';
 import {useDimensionContext} from '../../context';
@@ -16,20 +23,19 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import {updateProfileImage} from './controller';
-import { updateProfile } from '../../storage/action';
+import {updateProfile} from '../../storage/action';
 
 const Account = () => {
   const navigation = useNavigation();
   const dimensions = useDimensionContext();
   const responsiveStyle = style(
-    dimensions.windowWidth, 
+    dimensions.windowWidth,
     dimensions.windowHeight,
     dimensions.isPortrait,
   );
 
-  const {userId, firstName, lastName, email, mobileNumber, profileImage,} = useSelector(
-    state => state,
-  );
+  const {userId, firstName, lastName, email, mobileNumber, profileImage} =
+    useSelector(state => state);
   const dispatch = useDispatch();
 
   const [fName, setFName] = useState(firstName);
@@ -149,7 +155,9 @@ const Account = () => {
     }
   };
   return (
-    <View style={responsiveStyle.container}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={responsiveStyle.container}>
       <Text style={responsiveStyle.head}>
         {firstName} {lastName}
       </Text>
@@ -158,10 +166,10 @@ const Account = () => {
           <Image
             source={
               userImage === ''
-                ? profileImage === '' 
-                  ? require('../../assets/images/profile-drawer.jpeg') 
+                ? profileImage === ''
+                  ? require('../../assets/images/profile-drawer.jpeg')
                   : {uri: profileImage}
-                : {uri : userImage}
+                : {uri: userImage}
             }
             style={responsiveStyle.image}
           />
@@ -257,7 +265,7 @@ const Account = () => {
           </View>
         </View>
       </Modal>
-    </View>
+    </ScrollView>
   );
 };
 

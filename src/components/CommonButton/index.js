@@ -1,18 +1,20 @@
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 import style from './style';
-import { useDimensionContext } from '../../context';
+import {useDimensionContext} from '../../context';
 
 const CommonButton = props => {
-    const dimensions = useDimensionContext();
+  const dimensions = useDimensionContext();
   const responsiveStyle = style(
     dimensions.windowWidth,
     dimensions.windowHeight,
     dimensions.isPortrait,
   );
   return (
-    <View style={responsiveStyle.container}>
+    <TouchableOpacity 
+    onPress={props.onButtonPress}
+    style={responsiveStyle.container}>
       <Text style={responsiveStyle.text}>{props.buttonText}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -11,6 +11,7 @@ const style = (width, height, isPortrait) =>
         justifyContent:'center',
         alignItems:'center',
         margin: width* 0.04,
+        alignSelf: 'center',
     },
     text:{
         color:colors.white,

@@ -42,7 +42,7 @@ const style = (width, height) =>
       top:-10,
       width:23,
       height:23,
-      backgroundColor: colors.blue,
+      backgroundColor: colors.green,
       justifyContent:'center',
       alignItems:'center',
       borderRadius:10,
@@ -50,9 +50,10 @@ const style = (width, height) =>
       zIndex:9,
     },
     count:{
-      fontFamily:'Lato-Bold',
-      fontSize:14,
-      color: colors.white,
+      color:colors.white,
+        fontFamily:'Lato-Black',
+        fontSize:16,
+        textAlign:'center',
     },
     productImage: {
       width: 90,

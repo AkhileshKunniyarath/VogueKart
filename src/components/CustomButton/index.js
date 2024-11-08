@@ -12,11 +12,11 @@ const CustomButton = props => {
         style={[
             style.button,
             {
-                backgroundColor: type === 'primary' ? colors.navy_blue_2 : colors.gray_2,
-                marginVertical: type === 'primary' ? width * 0.1 : width * -0.06 ,
+                backgroundColor: type === 'primary' ? colors.navy_blue_2 : colors.gray_2 ,
+                marginVertical: type === 'primary' ? width * 0.08 : width * -0.06 ,
                 padding: type === 'primary' ? width * 0.042 : width * 0.03,
                 // marginTop: type === 'primary' ? height * 0.05 :  height * 0.005,
-                marginBottom: type === 'secondary' ? height * 0.039 :  height * 0.05,
+                marginBottom: type === 'secondary' ? height * 0.039 :  height * 0.02,
             },
             ]}>
                 {type !== 'primary' ? <Image source={icon} style={style.icon} /> : null}
