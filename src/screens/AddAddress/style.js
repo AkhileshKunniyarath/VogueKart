@@ -29,10 +29,11 @@ const style = (width, height, isPortrait) =>
             
         },
         mapView: {
-            height: height*0.4,
-            width: width,
-            justifyContent: 'center',
-            alignItems: 'center',
+            width: '100%', height: 300, alignSelf:'center',
+            // height: height*0.4,
+            // width: width,
+            // justifyContent: 'center',
+            // alignItems: 'center',
             // marginTop:75,
         },
         TouchView: {

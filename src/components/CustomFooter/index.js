@@ -4,7 +4,7 @@ import {useDimensionContext} from '../../context';
 import style from './style';
 import {useDispatch, useSelector} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
-import { updateCartCount } from '../../storage/action';
+import {updateCartCount} from '../../storage/action';
 
 const CustomFooter = ({state, descriptors, navigation}) => {
   const dimensions = useDimensionContext();
@@ -14,13 +14,14 @@ const CustomFooter = ({state, descriptors, navigation}) => {
     dimensions.isPortrait,
   );
 
-  const {cartCount, userId} = useSelector(state => state);
+  const userId = useSelector(state => state.userId);
+  const cartCount = useSelector(state => state.cartCount);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-      getCartProducts();
-    }, []);
- 
+    getCartProducts();
+  }, []);
 
   const getCartProducts = async () => {
     await firestore()

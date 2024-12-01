@@ -1,5 +1,4 @@
 import {
-  Animated,
   Image,
   ScrollView,
   Text,
@@ -22,9 +21,10 @@ import ProductReview from './components/ProductReview';
 import DeliveryInfo from './components/DeliveryInfo';
 import ProductScroll from '../../components/ProductScroll';
 import firestore from '@react-native-firebase/firestore';
-import { updateCartCount } from '../../storage/action';
+import { updateCartCount, updateWishIds } from '../../storage/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDimensionContext } from '../../context';
+import Snackbar from 'react-native-snackbar';
 
 const ProductDetails = props => {
   const dimensions = useDimensionContext();
@@ -33,7 +33,9 @@ const ProductDetails = props => {
     dimensions.windowHeight,
     dimensions.isPortrait,
   );
-  const {userId, cartCount} = useSelector(state => state);
+  const cartCount = useSelector(state => state.cartCount);
+  const userId = useSelector(state => state.userId);
+  const wishIds = useSelector(state => state.wishIds);
   const navigation = useNavigation();
   const [ProductDetailsObj, setProductDetails] = useState({});
   const [rating, setRating] = useState(4);
@@ -104,13 +106,62 @@ const ProductDetails = props => {
       });
   };
 
+  const addToWishlist = productDetails => {
+    firestore()
+      .collection('Wishlist')
+      .where('userId', '==', userId)
+      .where('productId', '==', productDetails.id)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          firestore()
+            .collection('Wishlist')
+            .add({
+              created: Date.now(),
+              updated: Date.now(),
+              description: productDetails.description,
+              name: productDetails.name,
+              price: productDetails.price,
+              userId: userId,
+              productId: productDetails.id,
+              image: productDetails.image,
+              categoryId: productDetails.categoryId,
+            })
+            .then(resp => {
+              dispatch(updateWishIds([...wishIds, productDetails.id]));
+              Snackbar.show({
+                text: 'Item added to Wishlist',
+                duration: Snackbar.LENGTH_SHORT,
+                backgroundColor: colors.green,
+                textColor: colors.white,
+              });
+            });
+        } else {
+          Snackbar.show({
+            text: 'Item is in your Wishlist',
+            duration: Snackbar.LENGTH_SHORT,
+            backgroundColor: colors.green,
+            textColor: colors.white,
+          });
+        }
+      });
+  };
+
   return (
     <View >
       <ScrollView ref={scrollRef}>
         {/* <View > */}
         <View style={responsiveStyle.heart}>
-          {/* <Ionicons name="heart-outline" size={30} color={colors.black} /> */}
-          <Ionicons name="heart-sharp" size={30} color={colors.red} />
+        <TouchableOpacity onPress={() => addToWishlist(ProductDetailsObj)}>
+            <Image
+              source={
+                wishIds.includes(ProductDetailsObj.id)
+                  ? require('../../assets/images/wishlist-product-inner.png')
+                  : require('../../assets/images/wishlist-product-outline.png')
+              }
+              style={responsiveStyle.whishIcon}
+            />
+          </TouchableOpacity>
         </View>
         <View style={responsiveStyle.productImagView}>
           <Image

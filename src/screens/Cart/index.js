@@ -4,7 +4,7 @@ import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import {useDimensionContext} from '../../context';
 import OrderTotal from './components/OrderTotal';
 import CommonButton from '../../components/CommonButton';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useIsFocused, useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import CommonHeaderLeft from '../../components/CommonHeaderLeft';
 import colors from '../../components/common/colors';
@@ -19,13 +19,24 @@ const Cart = () => {
     dimensions.windowHeight,
     dimensions.isPortrait,
   );
-  const {userId, cartCount, email , mobileNumber} = useSelector(state => state);
+  const userId = useSelector(state => state.userId);
+  const cartCount = useSelector(state => state.cartCount);
+  const email = useSelector(state => state.email);
+  const mobileNumber = useSelector(state => state.mobileNumber);
+  
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [cartProducts, setCartProducts] = useState([]);
   const [total, setTotal] = useState(0);
-  const [charges, setCharges] = useState(50);
+  const [charges, setCharges] = useState(0);
+  const isFocused = useIsFocused();
 
+  useEffect(() => {
+    if(isFocused) {
+      getCartProducts();
+    }
+  }, [isFocused]);
+  
   useFocusEffect(
     useCallback(() => {
       getCartProducts();
@@ -60,6 +71,9 @@ const Cart = () => {
           });
           setTotal(totalAmount);
           setCartProducts(result);
+        } else {
+          setCartProducts([]);
+          setTotal(0);
         }
       })
       .catch(err => {
@@ -92,6 +106,7 @@ const Cart = () => {
   };
 
   const onButtonPress = () => {
+    try{
     if(cartProducts.length > 0){
       if(email === '' || mobileNumber === ''){
         Snackbar.show({
@@ -102,9 +117,11 @@ const Cart = () => {
         });
         navigation.navigate('Account');
       }else{
-        navigation.navigate('AddAddress', {cartProducts: cartProducts});
+        navigation.navigate('AddAddress', {
+          cartProducts: cartProducts,
+          total: parseFloat(total+ charges).toFixed(2),
+        });
       }
-
     } else {
       Snackbar.show({
         text: 'Your cart is empty',
@@ -113,7 +130,10 @@ const Cart = () => {
         textColor: colors.white,
       });
     }
+  } catch (error) {
+    console.log(error);
   }
+};
 
   return (
     <View style={responsiveStyle.container}>
@@ -302,7 +322,7 @@ const RenderItem = ({item, index, updateArray, handleTotal}) => {
     dimensions.isPortrait,
   );
   const navigation = useNavigation();
-  const {userId} = useSelector(state => state);
+  const userId = useSelector(state => state.userId);
   const [quantity, setQuantity] = useState(item.quantity);
 
   useEffect(() => {

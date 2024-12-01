@@ -10,7 +10,11 @@ const CommonHeaderLeft = props => {
 
   const handleClick = () => {
     if (props.type === 'back') {
-      navigation.goBack();
+      if (props.action) {
+        props.action();
+      } else {
+        navigation.goBack();
+      }
     } else {
       navigation.toggleDrawer();
     }

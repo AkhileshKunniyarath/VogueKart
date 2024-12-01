@@ -1,4 +1,11 @@
-import {LOGIN, SIGNOUT, UPDATEPROFILE, UPDATECATEGORIES, UPDATECARTCOUNT ,} from './constants';
+import {
+  LOGIN,
+  SIGNOUT,
+  UPDATEPROFILE,
+  UPDATECATEGORIES,
+  UPDATECARTCOUNT,
+  UPDATEWISHIDS,
+} from './constants';
 
 const initialState = {
   isLoggedIn: false,
@@ -10,6 +17,7 @@ const initialState = {
   profileImage: '',
   categories: [],
   cartCount: 0,
+  wishIds: [],
 };
 export const VogueKartReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -53,6 +61,11 @@ export const VogueKartReducer = (state = initialState, action) => {
       return {
         ...state,
         cartCount: action.payload.cartCount,
+      };
+      case UPDATEWISHIDS:
+      return {
+        ...state,
+        wishIds: action.payload.wishIds,
       };
     default:
       return state;

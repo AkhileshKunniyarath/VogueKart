@@ -31,8 +31,8 @@ const style = (width, height) =>
       backgroundColor: colors.white_Bg,
     },
     circleCenter:{
-      width: 25,
-      height: 25,
+      width: 20,
+      height: 20,
       borderRadius: 25 / 2,
       backgroundColor: colors.white_Bg,
       marginTop: -25 / 2,

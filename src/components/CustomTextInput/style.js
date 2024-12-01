@@ -6,7 +6,7 @@ const  {width,height} = Dimensions.get('screen');
  const style= StyleSheet.create({
     container: {
         flexDirection: 'row',
-        // alignItems: 'center',
+        alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: colors.lightblue,
         padding: width * 0.015,
@@ -16,6 +16,7 @@ const  {width,height} = Dimensions.get('screen');
         borderColor: colors.gray,
     },
     textInput: {
+        flex: 1,
         color: colors.black_lvl_3,
         fontSize: 17,
         fontFamily:'Lato-Regular',

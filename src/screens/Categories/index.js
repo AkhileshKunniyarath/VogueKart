@@ -20,7 +20,7 @@ const Categories = () => {
   const dimension = useDimensionContext();
   const navigation = useNavigation();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
-  const {categories} = useSelector(state => state);
+  const categories = useSelector(state => state.categories);
   const route = useRoute();
   const {catIndex = 0} = route?.params?? {};
   const [products, setProducts] = useState([]);

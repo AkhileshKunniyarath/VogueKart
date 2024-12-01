@@ -16,9 +16,11 @@ const CustomDrawer = () => {
   );
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {firstName, lastName, email, profileImage} = useSelector(
-    state => state,
-  );
+    const firstName = useSelector(state => state.firstName);
+    const lastName = useSelector(state => state.lastName);
+    const email = useSelector(state => state.email);
+    const mobileNumber = useSelector(state => state.mobileNumber);
+    const profileImage = useSelector(state => state.profileImage);
 
   const contents = [
     {

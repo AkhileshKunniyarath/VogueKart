@@ -22,7 +22,7 @@ const style = (width, height) =>
       alignItems: 'center',
       flexDirection: 'row',
       borderRadius: 15,
-      padding: 2,
+      padding: 4,
       width: width * 0.96,
     },
     newStyle:{
@@ -33,7 +33,7 @@ const style = (width, height) =>
       alignItems: 'center',
       flexDirection: 'row',
       borderRadius: 15,
-      padding: 2,
+      padding: 4,
       width: width * 0.83,
     },
     searchIcon: {
@@ -42,11 +42,14 @@ const style = (width, height) =>
       resizeMode: 'contain',
     },
     micIcon : {
+      // position: 'absolute',
+      // right:10,
       width: 40,
       height: 24,
       resizeMode: 'contain',
     },
     textInput: {
+      flex: 1,
       fontFamily: 'Lato-Regular',
       fontSize: 17,
       width:width * 0.60,

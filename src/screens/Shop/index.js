@@ -21,7 +21,7 @@ const Shop = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const {type} = route.params;
-  const {categories} = useSelector(state => state);
+  const categories = useSelector(state => state.categories);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [products, setProducts] = useState([]);
 

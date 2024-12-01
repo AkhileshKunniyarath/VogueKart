@@ -1,4 +1,11 @@
-import {UPDATECATEGORIES, LOGIN, SIGNOUT, UPDATEPROFILE, UPDATECARTCOUNT} from './constants';
+import {
+  UPDATECATEGORIES,
+  LOGIN,
+  SIGNOUT,
+  UPDATEPROFILE,
+  UPDATECARTCOUNT,
+  UPDATEWISHIDS,
+} from './constants';
 
 export const login = data => ({
   type: LOGIN,
@@ -41,3 +48,10 @@ export const updateCartCount = data => ({
     cartCount: data,
   },
 });
+
+export const updateWishIds = data => ({
+  type: UPDATEWISHIDS,
+  payload: {
+    wishIds: data,
+  },
+})

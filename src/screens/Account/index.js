@@ -33,9 +33,13 @@ const Account = () => {
     dimensions.windowHeight,
     dimensions.isPortrait,
   );
+    const userId = useSelector(state => state.userId);
+    const firstName = useSelector(state => state.firstName);
+    const lastName = useSelector(state => state.lastName);
+    const email = useSelector(state => state.email);
+    const mobileNumber = useSelector(state => state.mobileNumber);
+    const profileImage = useSelector(state => state.profileImage);
 
-  const {userId, firstName, lastName, email, mobileNumber, profileImage} =
-    useSelector(state => state);
   const dispatch = useDispatch();
 
   const [fName, setFName] = useState(firstName);

@@ -1,15 +1,19 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import style from './style';
 import {FlatList, ScrollView, Text, View} from 'react-native';
 import CustomSearch from '../../components/CustomSearch';
 import {useDimensionContext} from '../../context';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import CommonHeaderLeft from '../../components/CommonHeaderLeft';
+import firestore from '@react-native-firebase/firestore';
+import Snackbar from 'react-native-snackbar';
 import colors from '../../components/common/colors';
 
 const Offers = () => {
   const dimensions = useDimensionContext();
   const navigation = useNavigation();
+  const [offers, setOffers] = useState([]);
+
 
   const responsiveStyle = style(
     dimensions.windowWidth,
@@ -23,44 +27,35 @@ const Offers = () => {
     });
   }, []);
 
-  const OffersArray = [
-    {
-      offer: '41',
-      head: 'Midnight Sale Offer',
-      content: 'On orders above Rs.999',
-      code: 'TY67HB',
-    },
-    {
-      offer: '50',
-      head: 'Mansoon  Offer',
-      content: 'On orders above Rs.1499',
-      code: 'HUB75G',
-    },
-    {
-      offer: '20',
-      head: 'Pink Sale Offer',
-      content: 'On orders above Rs.499',
-      code: 'JIU85D',
-    },
-    {
-      offer: '65',
-      head: ' Onam Sale Offer',
-      content: 'On orders above Rs.2499',
-      code: 'JSW457',
-    },
-    {
-      offer: '75',
-      head: 'Eid Sale Offer',
-      content: 'On orders above Rs.2999',
-      code: 'HSP094',
-    },
-    {
-      offer: '80',
-      head: 'New year  Offer',
-      content: 'On orders above Rs.3999',
-      code: 'APVB38',
-    },
-  ];
+  useFocusEffect(
+    useCallback(() => {
+      getOffers();
+    }, []),
+  );
+
+  const getOffers = async () => {
+    await firestore()
+      .collection('Offers')
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          Snackbar.show({
+            text: 'No Offers Found',
+            duration: Snackbar.LENGTH_LONG,
+            backgroundColor: colors.red,
+            textColor: colors.white,
+          });
+        } else {
+          const objArray = [];
+          snapshot?.docs.forEach(document => {
+            const result = {id: document.id, ...document?.data()};
+            objArray.push(result);
+          });
+          setOffers(objArray);
+        }
+      });
+  };
+
   return (
     <View style={responsiveStyle.main}>
       <ScrollView
@@ -70,7 +65,7 @@ const Offers = () => {
         <CustomSearch />
 
         <FlatList
-          data={OffersArray}
+          data={offers}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={responsiveStyle.contentStyle}
           keyExtractor={(item, index) => String(index)}
@@ -89,7 +84,7 @@ const Offers = () => {
                   style={{
                     width: '67%',
                     height: 100,
-                    backgroundColor: colors.blue,
+                    backgroundColor: colors.golden_yellow,
                     padding: 20,
                   }}>
                   <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -137,7 +132,7 @@ const Offers = () => {
                           color: colors.black,
                           fontSize: 14,
                         }}>
-                        {item.content}
+                        {item.subhead}
                       </Text>
                     </View>
                   </View>
@@ -159,7 +154,7 @@ const Offers = () => {
                   style={{
                     width: '25%',
                     height: 100,
-                    backgroundColor: colors.blue,
+                    backgroundColor: colors.golden_yellow,
                     padding: 10,
                   }}>
                   <Text
@@ -188,7 +183,7 @@ const Offers = () => {
                         color: colors.white,
                         alignSelf: 'center',
                       }}>
-                      {item.code}
+                      {item.offercode}
                     </Text>
                   </View>
                 </View>

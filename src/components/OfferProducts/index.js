@@ -70,7 +70,8 @@ const RenderItem = ({item, index}) => {
     dimensions.windowHeight,
   );
   const navigation = useNavigation();
-  const {userId, cartCount} = useSelector(state => state);
+  const userId = useSelector(state => state.userId);
+  const cartCount = useSelector(state => state.cartCount);
 
   const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();

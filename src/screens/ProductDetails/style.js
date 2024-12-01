@@ -13,8 +13,19 @@ const style = (width, height, isPortrait) =>
           heart: {
             position: 'absolute',
             top: 15, // Adjust to position the icon as needed
-            right: 28, // Adjust to position the icon as needed
+            right: 30, // Adjust to position the icon as needed
             zIndex: 1, // Ensures the icon is on top of the image
+          },
+          whishIcon: {
+            width: width * 0.07,
+            height: width * 0.07,
+            resizeMode: 'contain',
+            // alignSelf: 'flex-end',
+            // alignItems:'center',
+            // position: 'absolute',
+            // zIndex: 1,
+            // top: 10, // Adjust to position the icon as needed
+            // right: -10, // Adjust to position the icon as needed
           },
           productImagView : {
             width: width,

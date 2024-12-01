@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 
 const CommonHeaderRight = props => {
   const navigation = useNavigation();
-  const {cartCount} = useSelector(state => state);
+  const cartCount = useSelector(state => state.cartCount);
   const dimension = useDimensionContext();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
 

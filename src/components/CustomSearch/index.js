@@ -5,7 +5,7 @@ import {useDimensionContext} from '../../context';
 import colors from '../common/colors';
 
 const CustomSearch = props => {
-  const {filter} = {...props};
+  const {filter, placeholder, mike = false, onChangeText = {}} = {...props};
   const dimensions = useDimensionContext();
   const responsiveStyle = style(
     dimensions.windowWidth,
@@ -24,16 +24,21 @@ const CustomSearch = props => {
             style={responsiveStyle.searchIcon}
           />
           <TextInput
-            placeholder="Find your needs here . . ."
+            placeholder={
+              placeholder ? placeholder : 'Find your needs here . . .'
+            }
             placeholderTextColor={colors.gray}
             style={responsiveStyle.textInput}
             selectionColor={colors.anchor}
+            onChangeText={text => onChangeText(text)}
           />
+          {mike ? (
+            <Image
+              source={require('../../assets/images/voice.png')}
+              style={responsiveStyle.micIcon}
+            />
+          ) : null}
         </View>
-        <Image
-          source={require('../../assets/images/voice.png')}
-          style={responsiveStyle.micIcon}
-        />
       </View>
       {filter ? <Text style={responsiveStyle.filter}>Filter</Text> : null}
     </View>

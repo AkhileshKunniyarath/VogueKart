@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 const Trending = () => {
   const dimension = useDimensionContext();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
-  const {categories} = useSelector(state => state);
+  const categories = useSelector(state => state.categories);
 
 
   return (

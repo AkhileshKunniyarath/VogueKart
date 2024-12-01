@@ -21,15 +21,15 @@ const style = (width, height) =>
       justifyContent: 'center',
     },
     whishIcon: {
-      width: width * 0.05,
-      height: width * 0.05,
+      width: width * 0.07,
+      height: width * 0.07,
       resizeMode: 'contain',
       // alignSelf: 'flex-end',
       // alignItems:'center',
       position: 'absolute',
       zIndex: 1,
-      bottom: 85, // Adjust to position the icon as needed
-      right: 8, // Adjust to position the icon as needed
+      bottom: 1, // Adjust to position the icon as needed
+      right: 1, // Adjust to position the icon as needed
     },
     productImage: {
       width: width * 0.43,
